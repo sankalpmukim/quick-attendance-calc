@@ -1,6 +1,12 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import { useEffect, useState } from "react";
+import {
+  calcDaysTillAbove75Percent,
+  calcDaysTillBelow75Percent,
+  classNames,
+  pluralAndSingularClasses,
+} from "../lib";
 
 const Home: NextPage = () => {
   const [numerator, setNumerator] = useState(1);
@@ -50,7 +56,7 @@ const Home: NextPage = () => {
         {/* center */}
         <main className="my-auto flex h-full w-full flex-1 flex-col items-center justify-center p-0 text-center md:px-20">
           {/* grid with 2 x 3 layout */}
-          <div className="m-2 grid grid-cols-11 grid-rows-3 gap-4 md:grid-rows-2">
+          <div className="m-2 grid grid-cols-11 gap-4">
             {/* numerator input */}
             <div className="col-span-3 col-start-2 row-span-1 row-start-1 md:col-start-1">
               <input
@@ -142,6 +148,50 @@ const Home: NextPage = () => {
                 {`${Math.ceil(
                   Math.round((numerator / denominator) * 10000) / 100
                 )}%`}
+              </div>
+            </div>
+            {/* div takes entire row */}
+            <div className="col-span-11 row-span-1 md:row-span-1">
+              <div
+                className={classNames(
+                  numerator / denominator >= 0.75
+                    ? "text-green-400"
+                    : "text-red-400",
+                  "text-xl md:text-6xl"
+                )}
+              >
+                {`${
+                  numerator / denominator >= 0.75
+                    ? `You can miss ${calcDaysTillBelow75Percent(
+                        numerator,
+                        denominator
+                      )} ${pluralAndSingularClasses(
+                        calcDaysTillBelow75Percent(numerator, denominator)
+                      )}!`
+                    : `You need to attend ${calcDaysTillAbove75Percent(
+                        numerator,
+                        denominator
+                      )} ${pluralAndSingularClasses(
+                        calcDaysTillAbove75Percent(numerator, denominator)
+                      )}!`
+                }`}
+              </div>
+            </div>
+            {/* div takes entire row */}
+            <div className="col-span-11 row-span-1 md:row-span-1">
+              <div
+                className={classNames(
+                  numerator / denominator >= 0.75
+                    ? "text-green-400"
+                    : "text-red-400",
+                  "text-xl md:text-6xl"
+                )}
+              >
+                {`${
+                  numerator / denominator >= 0.75
+                    ? `You are good to go!`
+                    : `You need to attend more classes!`
+                }`}
               </div>
             </div>
           </div>
