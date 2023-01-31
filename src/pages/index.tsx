@@ -36,11 +36,11 @@ const Home: NextPage = () => {
   }, [numerator]);
 
   // useEffect to keep the numerator less than the denominator
-  useEffect(() => {
-    if (numerator > denominator) {
-      setNumerator(denominator);
-    }
-  }, [numerator, denominator]);
+  // useEffect(() => {
+  //   if (numerator > denominator) {
+  //     setNumerator(denominator);
+  //   }
+  // }, [numerator, denominator]);
 
   return (
     <>
@@ -152,47 +152,69 @@ const Home: NextPage = () => {
             </div>
             {/* div takes entire row */}
             <div className="col-span-11 row-span-1 md:row-span-1">
-              <div
-                className={classNames(
-                  numerator / denominator >= 0.75
-                    ? "text-green-400"
-                    : "text-red-400",
-                  "text-xl md:text-6xl"
-                )}
-              >
-                {`${
-                  numerator / denominator >= 0.75
-                    ? `You can miss ${calcDaysTillBelow75Percent(
-                        numerator,
-                        denominator
-                      )} ${pluralAndSingularClasses(
-                        calcDaysTillBelow75Percent(numerator, denominator)
-                      )}!`
-                    : `You need to attend ${calcDaysTillAbove75Percent(
-                        numerator,
-                        denominator
-                      )} ${pluralAndSingularClasses(
-                        calcDaysTillAbove75Percent(numerator, denominator)
-                      )}!`
-                }`}
-              </div>
+              {numerator > denominator ? (
+                <div
+                  className={classNames(
+                    "text-orange-300",
+                    "text-xl md:text-6xl"
+                  )}
+                >
+                  {`Oops Error!`}
+                </div>
+              ) : (
+                <div
+                  className={classNames(
+                    numerator / denominator >= 0.75
+                      ? "text-green-400"
+                      : "text-red-400",
+                    "text-xl md:text-6xl"
+                  )}
+                >
+                  {`${
+                    numerator / denominator >= 0.75
+                      ? `You can miss ${calcDaysTillBelow75Percent(
+                          numerator,
+                          denominator
+                        )} ${pluralAndSingularClasses(
+                          calcDaysTillBelow75Percent(numerator, denominator)
+                        )}!`
+                      : `You need to attend ${calcDaysTillAbove75Percent(
+                          numerator,
+                          denominator
+                        )} ${pluralAndSingularClasses(
+                          calcDaysTillAbove75Percent(numerator, denominator)
+                        )}!`
+                  }`}
+                </div>
+              )}
             </div>
             {/* div takes entire row */}
             <div className="col-span-11 row-span-1 md:row-span-1">
-              <div
-                className={classNames(
-                  numerator / denominator >= 0.75
-                    ? "text-green-400"
-                    : "text-red-400",
-                  "text-xl md:text-6xl"
-                )}
-              >
-                {`${
-                  numerator / denominator >= 0.75
-                    ? `You are good to go!`
-                    : `You need to attend more classes!`
-                }`}
-              </div>
+              {numerator > denominator ? (
+                <div
+                  className={classNames(
+                    "text-orange-300",
+                    "text-xl md:text-4xl"
+                  )}
+                >
+                  {`Please make sure the numerator is less than the denominator!`}
+                </div>
+              ) : (
+                <div
+                  className={classNames(
+                    numerator / denominator >= 0.75
+                      ? "text-green-400"
+                      : "text-red-400",
+                    "text-xl md:text-4xl"
+                  )}
+                >
+                  {`${
+                    numerator / denominator >= 0.75
+                      ? `You are good to go!`
+                      : `You need to attend more classes!`
+                  }`}
+                </div>
+              )}
             </div>
           </div>
         </main>
