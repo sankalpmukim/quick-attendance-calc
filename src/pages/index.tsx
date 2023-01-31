@@ -1,6 +1,6 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   calcDaysTillAbove75Percent,
   calcDaysTillBelow75Percent,
@@ -9,22 +9,24 @@ import {
 } from "../lib";
 
 const Home: NextPage = () => {
+  const [labMode, setLabMode] = useState(false);
   const [numerator, setNumerator] = useState(1);
   const [denominator, setDenominator] = useState(1);
-  const increaseBoth = () => {
-    setNumerator(numerator + 1);
-    setDenominator(denominator + 1);
-  };
+  const [incrementValue, setIncrementValue] = useState(1);
+  const increaseBoth = useCallback(() => {
+    setNumerator(numerator + incrementValue);
+    setDenominator(denominator + incrementValue);
+  }, [numerator, incrementValue, denominator]);
 
-  const decreaseBoth = () => {
-    setNumerator(numerator - 1);
-    setDenominator(denominator - 1);
-  };
+  const decreaseBoth = useCallback(() => {
+    setNumerator(numerator - incrementValue);
+    setDenominator(denominator - incrementValue);
+  }, [numerator, incrementValue, denominator]);
 
   // useEffect to keep the denominator from being 0
   useEffect(() => {
     if (denominator === 0) {
-      setDenominator(1);
+      setDenominator(incrementValue);
     }
   }, [denominator]);
 
@@ -36,11 +38,19 @@ const Home: NextPage = () => {
   }, [numerator]);
 
   // useEffect to keep the numerator less than the denominator
-  // useEffect(() => {
-  //   if (numerator > denominator) {
-  //     setNumerator(denominator);
-  //   }
-  // }, [numerator, denominator]);
+  useEffect(() => {
+    if (numerator > denominator) {
+      setNumerator(denominator);
+    }
+  }, [numerator, denominator]);
+
+  useEffect(() => {
+    if (labMode) {
+      setIncrementValue(2);
+    } else {
+      setIncrementValue(1);
+    }
+  }, [labMode]);
 
   return (
     <>
@@ -80,7 +90,7 @@ const Home: NextPage = () => {
             <div className="col-span-1 col-start-5 row-span-1 row-start-1 md:col-start-4">
               <button
                 className="w-full"
-                onClick={() => setNumerator(numerator + 1)}
+                onClick={() => setNumerator(numerator + incrementValue)}
               >
                 +
               </button>
@@ -89,7 +99,7 @@ const Home: NextPage = () => {
             <div className="col-span-1 col-start-5 row-span-1 row-start-2 md:col-start-4">
               <button
                 className="w-full"
-                onClick={() => setDenominator(denominator + 1)}
+                onClick={() => setDenominator(denominator + incrementValue)}
               >
                 +
               </button>
@@ -98,7 +108,7 @@ const Home: NextPage = () => {
             <div className="col-span-1 col-start-6 row-span-1 row-start-1 md:col-start-5">
               <button
                 className="w-full"
-                onClick={() => setNumerator(numerator - 1)}
+                onClick={() => setNumerator(numerator - incrementValue)}
               >
                 -
               </button>
@@ -107,7 +117,7 @@ const Home: NextPage = () => {
             <div className="col-span-1 col-start-6 row-span-1 row-start-2 md:col-start-5">
               <button
                 className="w-full"
-                onClick={() => setDenominator(denominator - 1)}
+                onClick={() => setDenominator(denominator - incrementValue)}
               >
                 -
               </button>
@@ -150,6 +160,36 @@ const Home: NextPage = () => {
                 )}%`}
               </div>
             </div>
+            {/* div takes entire row */}
+            <div className="col-span-11 row-span-1 md:row-span-1">
+              {/* toggle for lab mode */}
+              <div className="flex flex-row justify-center">
+                <label className="flex cursor-pointer items-center">
+                  <div className="relative">
+                    {/* input */}
+                    <input
+                      type="checkbox"
+                      className="sr-only"
+                      checked={labMode}
+                      onChange={() => setLabMode(!labMode)}
+                    />
+                    {/* line */}
+                    <div className="block h-8 w-14 rounded-full bg-gray-600" />
+                    {/* dot */}
+                    <div
+                      className={classNames(
+                        labMode ? "translate-x-6" : "translate-x-1",
+                        "absolute left-1 top-1 h-6 w-6 rounded-full bg-white transition"
+                      )}
+                    />
+                  </div>
+                  <div className="ml-3 font-medium text-gray-700">
+                    {`Lab Mode`}
+                  </div>
+                </label>
+              </div>
+            </div>
+
             {/* div takes entire row */}
             <div className="col-span-11 row-span-1 md:row-span-1">
               {numerator > denominator ? (
