@@ -48,25 +48,19 @@ const Home: NextPage = () => {
   }, [labMode]);
 
   // useEffect to track dark mode
-  // useEffect(() => {
-  //   if (darkMode) {
-  //     DarkReader.enable({
-  //       brightness: 100,
-  //       contrast: 90,
-  //       sepia: 10,
-  //     });
-  //     (async () => {
-  //       const css = await DarkReader.exportGeneratedCSS();
-  //       console.log(css);
-  //     })();
-  //   } else {
-  //     DarkReader.disable();
-  //     (async () => {
-  //       const css = await DarkReader.exportGeneratedCSS();
-  //       console.log(css);
-  //     })();
-  //   }
-  // }, [darkMode]);
+  useEffect(() => {
+    import("darkreader").then((DarkReader) => {
+      if (darkMode) {
+        DarkReader.enable({
+          brightness: 100,
+          contrast: 90,
+          sepia: 10,
+        });
+      } else {
+        DarkReader.disable();
+      }
+    });
+  }, [darkMode]);
 
   return (
     <>
