@@ -7,7 +7,7 @@ import {
   classNames,
   pluralAndSingularClasses,
 } from "../lib";
-import * as DarkReader from "darkreader";
+// import * as DarkReader from "darkreader";
 
 const Home: NextPage = () => {
   const [labMode, setLabMode] = useState(false);
@@ -48,17 +48,25 @@ const Home: NextPage = () => {
   }, [labMode]);
 
   // useEffect to track dark mode
-  useEffect(() => {
-    if (darkMode) {
-      DarkReader.enable({
-        brightness: 100,
-        contrast: 90,
-        sepia: 10,
-      });
-    } else {
-      DarkReader.disable();
-    }
-  }, [darkMode]);
+  // useEffect(() => {
+  //   if (darkMode) {
+  //     DarkReader.enable({
+  //       brightness: 100,
+  //       contrast: 90,
+  //       sepia: 10,
+  //     });
+  //     (async () => {
+  //       const css = await DarkReader.exportGeneratedCSS();
+  //       console.log(css);
+  //     })();
+  //   } else {
+  //     DarkReader.disable();
+  //     (async () => {
+  //       const css = await DarkReader.exportGeneratedCSS();
+  //       console.log(css);
+  //     })();
+  //   }
+  // }, [darkMode]);
 
   return (
     <>
