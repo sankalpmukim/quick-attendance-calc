@@ -7,9 +7,11 @@ import {
   classNames,
   pluralAndSingularClasses,
 } from "../lib";
+import * as DarkReader from "darkreader";
 
 const Home: NextPage = () => {
   const [labMode, setLabMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
   const [numerator, setNumerator] = useState(1);
   const [denominator, setDenominator] = useState(1);
   const [incrementValue, setIncrementValue] = useState(1);
@@ -44,6 +46,19 @@ const Home: NextPage = () => {
       setIncrementValue(1);
     }
   }, [labMode]);
+
+  // useEffect to track dark mode
+  useEffect(() => {
+    if (darkMode) {
+      DarkReader.enable({
+        brightness: 100,
+        contrast: 90,
+        sepia: 10,
+      });
+    } else {
+      DarkReader.disable();
+    }
+  }, [darkMode]);
 
   return (
     <>
@@ -154,7 +169,7 @@ const Home: NextPage = () => {
               </div>
             </div>
             {/* div takes entire row */}
-            <div className="col-span-11 row-span-1 md:row-span-1">
+            <div className="col-span-11 row-span-1 flex items-center justify-around md:row-span-1">
               {/* toggle for lab mode */}
               <div className="flex flex-row justify-center">
                 <label className="flex cursor-pointer items-center">
@@ -178,6 +193,32 @@ const Home: NextPage = () => {
                   </div>
                   <div className="ml-3 font-medium text-gray-700">
                     {`Lab Mode`}
+                  </div>
+                </label>
+              </div>
+              {/* toggle for dark mode */}
+              <div className="flex flex-row justify-center">
+                <label className="flex cursor-pointer items-center">
+                  <div className="relative">
+                    {/* input */}
+                    <input
+                      type="checkbox"
+                      className="sr-only"
+                      checked={darkMode}
+                      onChange={() => setDarkMode(!darkMode)}
+                    />
+                    {/* line */}
+                    <div className="block h-8 w-14 rounded-full bg-gray-600" />
+                    {/* dot */}
+                    <div
+                      className={classNames(
+                        darkMode ? "translate-x-6" : "translate-x-1",
+                        "absolute left-1 top-1 h-6 w-6 rounded-full bg-white transition"
+                      )}
+                    />
+                  </div>
+                  <div className="ml-3 font-medium text-gray-700">
+                    {`Dark Mode`}
                   </div>
                 </label>
               </div>
