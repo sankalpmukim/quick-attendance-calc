@@ -11,7 +11,7 @@ import {
 
 const Home: NextPage = () => {
   const [labMode, setLabMode] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
   const [numerator, setNumerator] = useState(1);
   const [denominator, setDenominator] = useState(1);
   const [incrementValue, setIncrementValue] = useState(1);
