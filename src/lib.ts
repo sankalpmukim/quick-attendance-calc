@@ -1,7 +1,14 @@
-export const calcDaysTillBelow75Percent = (
-  numerator: number,
-  denominator: number
-) => {
+interface CalcInputType {
+  numerator: number;
+  denominator: number;
+  incrementValue: number;
+}
+
+export const calcDaysTillBelow75Percent = ({
+  numerator,
+  denominator,
+  incrementValue,
+}: CalcInputType) => {
   const num = numerator;
   let den = denominator;
   let fraction = numerator / denominator;
@@ -13,13 +20,14 @@ export const calcDaysTillBelow75Percent = (
     count += 1;
   }
 
-  return count - 1;
+  return Math.floor((count - 1) / incrementValue);
 };
 
-export const calcDaysTillAbove75Percent = (
-  numerator: number,
-  denominator: number
-) => {
+export const calcDaysTillAbove75Percent = ({
+  numerator,
+  denominator,
+  incrementValue,
+}: CalcInputType) => {
   let num = numerator;
   let den = denominator;
   let fraction = numerator / denominator;
@@ -32,7 +40,7 @@ export const calcDaysTillAbove75Percent = (
     count += 1;
   }
 
-  return count - 1;
+  return Math.floor((count - 1) / incrementValue);
 };
 
 export const pluralAndSingularClasses = (count: number) => {
