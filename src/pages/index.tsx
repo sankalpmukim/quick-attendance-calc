@@ -248,17 +248,27 @@ const Home: NextPage = () => {
                 >
                   {`${
                     numerator / denominator >= 0.75
-                      ? `You can miss ${calcDaysTillBelow75Percent(
+                      ? `You can miss ${calcDaysTillBelow75Percent({
                           numerator,
-                          denominator
-                        )} ${pluralAndSingularClasses(
-                          calcDaysTillBelow75Percent(numerator, denominator)
+                          denominator,
+                          incrementValue,
+                        })} ${pluralAndSingularClasses(
+                          calcDaysTillBelow75Percent({
+                            numerator,
+                            denominator,
+                            incrementValue,
+                          })
                         )}!`
-                      : `You need to attend ${calcDaysTillAbove75Percent(
+                      : `You need to attend ${calcDaysTillAbove75Percent({
                           numerator,
-                          denominator
-                        )} ${pluralAndSingularClasses(
-                          calcDaysTillAbove75Percent(numerator, denominator)
+                          denominator,
+                          incrementValue,
+                        })} ${pluralAndSingularClasses(
+                          calcDaysTillAbove75Percent({
+                            numerator,
+                            denominator,
+                            incrementValue,
+                          })
                         )}!`
                   }`}
                 </div>
