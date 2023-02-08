@@ -43,8 +43,18 @@ export const calcDaysTillAbove75Percent = ({
   return Math.floor((count - 1) / incrementValue);
 };
 
-export const pluralAndSingularClasses = (count: number) => {
-  return count === 1 ? "class" : "classes";
+export const pluralAndSingularClasses = ({
+  count,
+  labMode,
+}: {
+  count: number;
+  labMode: boolean;
+}) => {
+  if (labMode) {
+    return count === 1 ? "lab class" : "lab classes";
+  } else {
+    return count === 1 ? "class" : "classes";
+  }
 };
 
 export const classNames = (...classes: string[]) => {

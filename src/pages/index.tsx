@@ -252,24 +252,26 @@ const Home: NextPage = () => {
                           numerator,
                           denominator,
                           incrementValue,
-                        })} ${pluralAndSingularClasses(
-                          calcDaysTillBelow75Percent({
+                        })} ${pluralAndSingularClasses({
+                          count: calcDaysTillBelow75Percent({
                             numerator,
                             denominator,
                             incrementValue,
-                          })
-                        )}!`
+                          }),
+                          labMode,
+                        })}!`
                       : `You need to attend ${calcDaysTillAbove75Percent({
                           numerator,
                           denominator,
                           incrementValue,
-                        })} ${pluralAndSingularClasses(
-                          calcDaysTillAbove75Percent({
+                        })} ${pluralAndSingularClasses({
+                          count: calcDaysTillAbove75Percent({
                             numerator,
                             denominator,
                             incrementValue,
-                          })
-                        )}!`
+                          }),
+                          labMode,
+                        })}!`
                   }`}
                 </div>
               )}
