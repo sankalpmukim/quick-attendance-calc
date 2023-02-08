@@ -150,24 +150,27 @@ const Home: NextPage = () => {
                 {`Decrease both`}
               </button>
             </div>
-            {/* fraction */}
-            <div className="col-span-3 row-span-1 row-start-3 row-end-5 md:col-span-2 md:row-span-1 md:row-start-1 md:row-end-3">
-              <div className="text-xl md:text-6xl">
-                {numerator}/{denominator}
+            {/* div takes entire row */}
+            <div className="col-span-11 row-span-1 flex items-center justify-around md:row-span-1">
+              {/* fraction */}
+              <div className="col-span-3 row-span-1 row-start-3 row-end-5 md:col-span-2 md:row-span-1 md:row-start-1 md:row-end-3">
+                <div className="text-xl md:text-6xl">
+                  {numerator}/{denominator}
+                </div>
               </div>
-            </div>
-            {/* percentage */}
-            <div className="col-span-5 row-span-1 row-start-3 row-end-5 md:col-span-2 md:row-span-1 md:row-start-1 md:row-end-3">
-              <div className="text-xl md:text-6xl">
-                {`${Math.round((numerator / denominator) * 10000) / 100}%`}
+              {/* percentage */}
+              <div className="col-span-5 row-span-1 row-start-3 row-end-5 md:col-span-2 md:row-span-1 md:row-start-1 md:row-end-3">
+                <div className="text-xl md:text-6xl">
+                  {`${Math.round((numerator / denominator) * 10000) / 100}%`}
+                </div>
               </div>
-            </div>
-            {/* percentage with ceil */}
-            <div className="col-span-3 row-span-1 row-start-3 row-end-5 md:col-span-2 md:row-span-1 md:row-start-1 md:row-end-3">
-              <div className="text-xl md:text-6xl">
-                {`${Math.ceil(
-                  Math.round((numerator / denominator) * 10000) / 100
-                )}%`}
+              {/* percentage with ceil */}
+              <div className="col-span-3 row-span-1 row-start-3 row-end-5 md:col-span-2 md:row-span-1 md:row-start-1 md:row-end-3">
+                <div className="text-xl md:text-6xl">
+                  {`${Math.ceil(
+                    Math.round((numerator / denominator) * 10000) / 100
+                  )}%`}
+                </div>
               </div>
             </div>
             {/* div takes entire row */}
